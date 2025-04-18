@@ -1,6 +1,7 @@
 //@ts-self-types = "../type/clienthello.d.ts"
 import { Cipher, Cookie, EarlyDataIndication, Extension, ExtensionType, KeyShareClientHello, NamedGroupList, OfferedPsks, Padding, PskKeyExchangeModes, RecordSizeLimit, unity, ServerNameList, SignatureSchemeList, Uint16, Uint24, Version, Versions } from "./dep.ts";
-import { parseItems } from "./utils.js"
+//import { parseItems } from "./utils.js"
+import { parseItems } from "./dep.ts"
 
 export class ClientHello extends Uint8Array {
    #version

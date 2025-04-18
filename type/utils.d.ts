@@ -11,7 +11,7 @@
  * @returns {Set<any> | Map<any, any> | any[]} - The store containing parsed items.
  * @throws {RangeError} - If the specified length exceeds available data.
  * @throws {TypeError} - If the store is not an instance of Set, Map, or Array.
- * @version 0.0.2
+ * @version 0.0.3
  */
 export declare function parseItems(
    copy: Uint8Array,

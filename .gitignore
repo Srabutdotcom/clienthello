@@ -1,5 +1,5 @@
 /.vscode
 /play
-.gitignore
+./.gitignore
 ./commit.sh
 ./version.js

@@ -5,9 +5,8 @@
     "jsr:@aicone/byte@~0.8.5": "0.8.6",
     "jsr:@aicone/byte@~0.8.6": "0.8.6",
     "jsr:@noble/hashes@^1.7.2": "1.7.2",
-    "jsr:@tls/enum@~0.9.5": "0.9.6",
-    "jsr:@tls/enum@~0.9.6": "0.9.6",
-    "jsr:@tls/extension@~0.5.9": "0.5.9",
+    "jsr:@tls/enum@~0.9.7": "0.9.7",
+    "jsr:@tls/extension@0.6": "0.6.0",
     "jsr:@tls/parser@^0.0.3": "0.0.3",
     "npm:@noble/curves@^1.8.2": "1.8.2",
     "npm:@peculiar/x509@^1.12.3": "1.12.3",
@@ -23,20 +22,21 @@
     "@noble/hashes@1.7.2": {
       "integrity": "537468975e88e1ab3f5a772657b7143bd37d754ee0f0306188c9da11e2f404df"
     },
-    "@tls/enum@0.9.6": {
-      "integrity": "18844f1bf350f83c20ee467a51374d3234d5990cf04f3555e75930cb311d9cef",
+    "@tls/enum@0.9.7": {
+      "integrity": "01eacc59fca70a9e9014b781097a60d463bbe100710f612fe2ceef7225524234",
       "dependencies": [
-        "jsr:@aicone/byte@~0.8.4",
+        "jsr:@aicone/byte@~0.8.6",
         "jsr:@noble/hashes",
         "npm:@noble/curves",
         "npm:@peculiar/x509"
       ]
     },
-    "@tls/extension@0.5.9": {
-      "integrity": "272e92b41e63e5a8f7bd8358a055b8dcb551df6b141332192877ae154d38022d",
+    "@tls/extension@0.6.0": {
+      "integrity": "671c3008cb4b5084c536d943080f6d92817f821849dbfa9d0ff5e6ca98c5d188",
       "dependencies": [
-        "jsr:@aicone/byte@~0.8.5",
-        "jsr:@tls/enum@~0.9.5"
+        "jsr:@aicone/byte@~0.8.6",
+        "jsr:@tls/enum",
+        "jsr:@tls/parser"
       ]
     },
     "@tls/parser@0.0.3": {
@@ -318,8 +318,8 @@
   "workspace": {
     "dependencies": [
       "jsr:@aicone/byte@~0.8.6",
-      "jsr:@tls/enum@~0.9.6",
-      "jsr:@tls/extension@~0.5.9",
+      "jsr:@tls/enum@~0.9.7",
+      "jsr:@tls/extension@0.6",
       "jsr:@tls/parser@^0.0.3"
     ]
   }

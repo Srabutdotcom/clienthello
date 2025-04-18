@@ -1,19 +1,27 @@
 {
   "name": "@tls/clienthello",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "exports": "./src/mod.ts",
   "publish": {
-    "exclude": ["dist/"]
+    "exclude": [
+      "dist/"
+    ]
   },
-  "tasks":{
-    "test": "deno test", 
+  "tasks": {
+    "test": "deno test",
     "lint": "deno lint"
-  }, 
+  },
   "lint": {
-    "include": ["src/"],
-    "exclude": ["dist/"],
+    "include": [
+      "src/"
+    ],
+    "exclude": [
+      "dist/"
+    ],
     "rules": {
-      "exclude": ["no-slow-types"]
+      "exclude": [
+        "no-slow-types"
+      ]
     }
   },
   "imports": {

@@ -4,7 +4,7 @@ import { Cipher, NamedGroup, OfferedPsks, SignatureScheme, Version } from "../sr
 /**
  * Represents a TLS 1.3 ClientHello message as a binary structure.
  * Extends Uint8Array and provides convenient access to TLS fields.
- * @version 0.0.5
+ * @version 0.0.6
  */
 export class ClientHello extends Uint8Array {
    /** Create a new instance from given arguments. */

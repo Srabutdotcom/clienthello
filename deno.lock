@@ -4,6 +4,7 @@
     "jsr:@aicone/byte@~0.8.4": "0.8.6",
     "jsr:@aicone/byte@~0.8.5": "0.8.6",
     "jsr:@aicone/byte@~0.8.6": "0.8.6",
+    "jsr:@aicone/connector@^0.0.3": "0.0.3",
     "jsr:@noble/hashes@^1.7.2": "1.7.2",
     "jsr:@tls/enum@~0.9.7": "0.9.7",
     "jsr:@tls/extension@0.6": "0.6.0",
@@ -18,6 +19,9 @@
       "dependencies": [
         "npm:pvtsutils"
       ]
+    },
+    "@aicone/connector@0.0.3": {
+      "integrity": "992179d46de58c4bb44376bd50833067316904f632b74259669b61fc0b04b88a"
     },
     "@noble/hashes@1.7.2": {
       "integrity": "537468975e88e1ab3f5a772657b7143bd37d754ee0f0306188c9da11e2f404df"
@@ -318,6 +322,7 @@
   "workspace": {
     "dependencies": [
       "jsr:@aicone/byte@~0.8.6",
+      "jsr:@aicone/connector@^0.0.3",
       "jsr:@tls/enum@~0.9.7",
       "jsr:@tls/extension@0.6",
       "jsr:@tls/parser@^0.0.3"

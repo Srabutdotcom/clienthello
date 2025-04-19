@@ -1,4 +1,4 @@
-//@ts-self-types="../type/clienthellocompose.d.ts"
+//@ts-self-types="../type/compose.d.ts"
 import { Cipher, NamedGroup, PskKeyExchangeMode, Version, SignatureScheme, Extension, ExtensionType, ServerNameList, NamedGroupList, SignatureSchemeList, Versions, PskKeyExchangeModes, KeyShareClientHello, vector16, unity, vector8, vector, Alert, AlertDescription, parseItems, uint32 } from "./dep.ts";
 
 const defaultOption = {

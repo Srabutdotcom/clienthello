@@ -38,6 +38,9 @@ const defaultOption = {
    binders: []
 }
 
+// set group, since sometime we want to send just one group in first flight
+defaultOption.groups = defaultOption.supported_groups
+
 export function clientHelloCompose(option = defaultOption, defaults = defaultOption) {
    const {
       legacy_version,
@@ -49,6 +52,7 @@ export function clientHelloCompose(option = defaultOption, defaults = defaultOpt
       supported_versions,
       psk_key_exchange_modes,
       supported_groups,
+      groups,
       signature_algorithms,
       server_names = []
    } = { ...defaults, ...option };
@@ -64,7 +68,7 @@ export function clientHelloCompose(option = defaultOption, defaults = defaultOpt
    const signature_algorithms_extension_0 = signature_algorithms_extension(...signature_algorithms)
    const supported_versions_extension_0 = supported_versions_extension(...supported_versions)
    const psk_key_exchange_modes_extension_0 = psk_key_exchange_modes_extension(...psk_key_exchange_modes)
-   const key_share_clienthello_extension_0 = key_share_clienthello_extension(...supported_groups)
+   const key_share_clienthello_extension_0 = key_share_clienthello_extension(...groups)
    //const pre_shared_key_extension_0 = 
 
    const extensions_0 = extensions(

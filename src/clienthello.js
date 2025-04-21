@@ -1,4 +1,5 @@
 //@ts-self-types = "../type/clienthello.d.ts"
+import { clientHelloCompose } from "./compose.js";
 import { Cipher, Cookie, EarlyDataIndication, Extension, ExtensionType, KeyShareClientHello, NamedGroupList, OfferedPsks, Padding, PskKeyExchangeModes, RecordSizeLimit, unity, ServerNameList, SignatureSchemeList, Uint16, Uint24, Version, Versions } from "./dep.ts";
 //import { parseItems } from "./utils.js"
 import { parseItems } from "./dep.ts"
@@ -14,7 +15,7 @@ export class ClientHello extends Uint8Array {
    #proto
    #keyshares
    #sni
-
+   static compose = clientHelloCompose
    static create(...args) {
       return new ClientHello(...args)
    }
@@ -115,7 +116,7 @@ export class ClientHello extends Uint8Array {
    }
    get record() {
       const handshake = this.handshake
-      const record = unity(22, Version.TLS10.byte, Uint16.fromValue(handshake.length), handshake);
+      const record = unity(22, Version.legacy.byte, Uint16.fromValue(handshake.length), handshake);
       record.groups = this.groups;
       record.fragment = handshake;
       return record

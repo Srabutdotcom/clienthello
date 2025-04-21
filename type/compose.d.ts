@@ -1,3 +1,4 @@
+import { ClientHello } from "../src/clienthello.js";
 import { Cipher, NamedGroup, ProtocolVersion, PskKeyExchangeMode, SignatureScheme, Version } from "../src/dep.ts";
 
 /**
@@ -71,9 +72,9 @@ export declare const defaultOption: Required<ClientHelloOption>;
 
 /**
  * Composes a TLS 1.3 ClientHello message.
- * @version 0.0.7
+ * @version 0.0.8
  */
 export declare function clientHelloCompose(
   option?: ClientHelloOption
-): Uint8Array & { groups: NamedGroup[] };
+): ClientHello;
  

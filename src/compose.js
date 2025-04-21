@@ -1,4 +1,5 @@
 //@ts-self-types="../type/compose.d.ts"
+import { ClientHello } from "./clienthello.js";
 import { Cipher, NamedGroup, PskKeyExchangeMode, Version, SignatureScheme, Extension, ExtensionType, ServerNameList, NamedGroupList, SignatureSchemeList, Versions, PskKeyExchangeModes, KeyShareClientHello, vector16, unity, vector8, vector, Alert, AlertDescription, parseItems, uint32 } from "./dep.ts";
 
 const defaultOption = {
@@ -88,8 +89,9 @@ export function clientHelloCompose(option = defaultOption, defaults = defaultOpt
       legacy_compression_methods,
       extensions_0
    )
-   clientHelloCandidate.groups = supported_groups
-   return clientHelloCandidate
+   const clientHello = ClientHello.from(clientHelloCandidate);
+   clientHello.groups = supported_groups
+   return clientHello
    //return sanitizeClientHello(clientHelloCandidate)
 }
 

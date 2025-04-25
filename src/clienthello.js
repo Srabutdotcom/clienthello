@@ -33,29 +33,48 @@ export class ClientHello extends Uint8Array {
       this.#random ||= this.subarray(2, 34);
       return this.#random;
    }
+   get #sessionIdRange() {
+      const pos = 34;
+      const length = this[pos];
+      const start = pos + 1;
+      const end = length === 0 ? start : start + length;
+      return { start, end };
+   }
    get legacy_session_id() {
-      if (this.#legacy_session_id) return this.#legacy_session_id
-      const lengthOf = this.at(34);
-      if (lengthOf == 0) {
-         this.#legacy_session_id = this.subarray(34, 35);
-         this.#legacy_session_id.end = 35
-      } else {
-         const end = 35 + lengthOf
-         this.#legacy_session_id = this.subarray(35, end);
-         this.#legacy_session_id.end = end;
-      }
+      if (this.#legacy_session_id) return this.#legacy_session_id;
+
+      const { start, end } = this.#sessionIdRange;
+      this.#legacy_session_id = this.subarray(start, end);
+
       return this.#legacy_session_id
    }
    get session_id() { return this.legacy_session_id }
+
+   get #ciphersRange() {
+      const { end: sessionIdEnd } = this.#sessionIdRange;
+      const length = Uint16.from(this.subarray(sessionIdEnd)).value;
+      return {
+         start: sessionIdEnd + 2,
+         end: sessionIdEnd + 2 + length
+      };
+   }
    get ciphers() {
       if (this.#ciphers) return this.#ciphers;
-      const lengthOf = Uint16.from(this.subarray(this.legacy_session_id.end)).value;
-      if (lengthOf < 2) throw Error(`expected at list one cipher`)
-      const start = this.legacy_session_id.end + 2;
-      const end = start + lengthOf;
-      this.#ciphers = parseItems(this, start, lengthOf, Cipher);//
-      this.#ciphers.end = end;
+
+      const { start, end } = this.#ciphersRange;
+      const lengthOf = end - start;
+
+      this.#ciphers = parseItems(this, start, lengthOf, Cipher, { store: [] });//
+
       return this.#ciphers;
+   }
+
+   get #compRange(){
+      const { end : ciphersEnd } = this.#ciphersRange;
+      return {
+         start: ciphersEnd,
+         end: ciphersEnd + 2
+      }
    }
    /**
     * For every TLS 1.3 ClientHello, this vector
@@ -67,16 +86,18 @@ export class ClientHello extends Uint8Array {
     */
    get legacy_compression_methods() {
       if (this.#legacy_compression_methods) return this.#legacy_compression_methods
-      const end = this.ciphers.end + 2;
-      this.#legacy_compression_methods ||= this.subarray(this.ciphers.end, end);
-      this.#legacy_compression_methods.end = end
+
+      const { start, end } = this.#compRange;
+
+      this.#legacy_compression_methods ||= this.subarray(start, end);
       return this.#legacy_compression_methods
    }
    get extensions() {
       if (this.#extensions) return this.#extensions;
-      const copy = this.subarray(this.legacy_compression_methods.end)
-      const lengthOf = Uint16.from(copy).value;
-      this.#extensions ||= parseItems(copy, 2, lengthOf, Extension, { parser: parseExtension, store: new Map, storeset: (store, data) => store.set(data.type, data.data) }) //output;
+
+      const { end: start } = this.#compRange;
+      const lengthOf = Uint16.from(this.subarray(start)).value;
+      this.#extensions ||= parseItems(this.subarray(start+2), 0, lengthOf, Extension, { parser: parseExtension, store: new Map, storeset: (store, data) => store.set(data.type, data.data) }) //output;
       return this.#extensions;
    }
    get supported_versions() {

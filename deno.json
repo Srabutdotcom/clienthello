@@ -1,6 +1,6 @@
 {
   "name": "@tls/clienthello",
-  "version": "0.10.2",
+  "version": "0.10.4",
   "exports": "./src/mod.ts",
   "publish": {
     "exclude": [

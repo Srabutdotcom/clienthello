@@ -77,7 +77,7 @@ export function clientHelloCompose({
       extensions_0
    )
    const clientHello = ClientHello.from(clientHelloCandidate);
-   clientHello.groups = supported_groups
+   clientHello.groups = groups
    return clientHello
    //return sanitizeClientHello(clientHelloCandidate)
 }

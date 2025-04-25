@@ -1,5 +1,5 @@
 # TLS 1.3 Parameter Structures (RFC 8446 - Section 4.1)
-@version 0.10.1
+@version 0.10.2
 
 This project provides JavaScript implementations for handling TLS 1.3 parameters as defined in [RFC 8446 Section 4.1](https://datatracker.ietf.org/doc/html/rfc8446#section-4.1). The code focuses on encoding, decoding, and managing the data structures involved in the `ClientHello` messages during the TLS 1.3 handshake process.
 

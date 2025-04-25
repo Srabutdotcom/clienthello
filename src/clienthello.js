@@ -28,7 +28,7 @@ export class ClientHello extends Uint8Array {
       this.#version ||= Version.from(this.subarray(0, 2))
       return this.#version
    }
-   get legacy_version() { return this.version }
+   get legacy_version() { return this.version.byte }
    get random() {
       this.#random ||= this.subarray(2, 34);
       return this.#random;

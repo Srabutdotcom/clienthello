@@ -2,28 +2,27 @@
 import { ClientHello } from "./clienthello.js";
 import { Cipher, NamedGroup, PskKeyExchangeMode, Version, SignatureScheme, Extension, ExtensionType, ServerNameList, NamedGroupList, SignatureSchemeList, Versions, PskKeyExchangeModes, KeyShareClientHello, vector16, unity, vector8, vector, Alert, AlertDescription, parseItems, uint32 } from "./dep.ts";
 
-const defaultOption = {
-   legacy_version: Uint8Array.of(3, 3),
-   random: crypto.getRandomValues(new Uint8Array(32)),
-   session_id: new Uint8Array,
-   legacy_session_id: new Uint8Array,
-   ciphers: [
+export function clientHelloCompose({
+   legacy_version = Uint8Array.of(3, 3),
+   random = crypto.getRandomValues(new Uint8Array(32)),
+   session_id = new Uint8Array,
+   ciphers = [
       Cipher.AES_128_GCM_SHA256,
       Cipher.AES_256_GCM_SHA384,
       Cipher.CHACHA20_POLY1305_SHA256
    ],
-   legacy_compression_methods: Uint8Array.of(1, 0),
+   legacy_compression_methods = Uint8Array.of(1, 0),
    // extensions/
-   supported_versions: [Version.TLS13],
-   psk_key_exchange_modes: [PskKeyExchangeMode.PSK_DHE_KE],
-   supported_groups: [
+   supported_versions = [Version.TLS13],
+   psk_key_exchange_modes = [PskKeyExchangeMode.PSK_DHE_KE],
+   supported_groups = [
       NamedGroup.X25519,
       NamedGroup.SECP256R1,
       NamedGroup.SECP384R1,
       NamedGroup.SECP521R1,
       NamedGroup.X448
    ],
-   signature_algorithms: [
+   signature_algorithms = [
       SignatureScheme.ECDSA_SECP256R1_SHA256,
       SignatureScheme.ECDSA_SECP384R1_SHA384,
       SignatureScheme.ECDSA_SECP521R1_SHA512,
@@ -34,29 +33,17 @@ const defaultOption = {
       SignatureScheme.RSA_PSS_PSS_SHA384,
       SignatureScheme.RSA_PSS_PSS_SHA512
    ],
-   server_names: [],
-   identities: [],
-   binders: []
-}
-
-// set group, since sometime we want to send just one group in first flight
-defaultOption.groups = defaultOption.supported_groups
-
-export function clientHelloCompose(option = defaultOption, defaults = defaultOption) {
-   const {
-      legacy_version,
-      random,
-      session_id,
-      ciphers,
-      legacy_compression_methods,
-      // extensions
-      supported_versions,
-      psk_key_exchange_modes,
-      supported_groups,
-      groups,
-      signature_algorithms,
-      server_names = []
-   } = { ...defaults, ...option };
+   groups = [
+      NamedGroup.X25519,
+      NamedGroup.SECP256R1,
+      NamedGroup.SECP384R1,
+      NamedGroup.SECP521R1,
+      NamedGroup.X448
+   ],
+   server_names = [],
+   identities = [],
+   binders = []
+} = {}) {
 
    // versions
    const legacy_session_id_0 = legacy_session_id(session_id);

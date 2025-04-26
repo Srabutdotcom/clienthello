@@ -69,8 +69,8 @@ export class ClientHello extends Uint8Array {
       return this.#ciphers;
    }
 
-   get #compRange(){
-      const { end : ciphersEnd } = this.#ciphersRange;
+   get #compRange() {
+      const { end: ciphersEnd } = this.#ciphersRange;
       return {
          start: ciphersEnd,
          end: ciphersEnd + 2
@@ -97,7 +97,7 @@ export class ClientHello extends Uint8Array {
 
       const { end: start } = this.#compRange;
       const lengthOf = Uint16.from(this.subarray(start)).value;
-      this.#extensions ||= parseItems(this.subarray(start+2), 0, lengthOf, Extension, { parser: parseExtension, store: new Map, storeset: (store, data) => store.set(data.type, data.data) }) //output;
+      this.#extensions ||= parseItems(this.subarray(start + 2), 0, lengthOf, Extension, { parser: parseExtension, store: new Map, storeset: (store, data) => store.set(data.type, data.data) }) //output;
       return this.#extensions;
    }
    get supported_versions() {
@@ -138,6 +138,22 @@ export class ClientHello extends Uint8Array {
    get record() {
       const handshake = this.handshake
       const record = unity(22, Version.legacy.byte, Uint16.fromValue(handshake.length), handshake);
+      record.groups = this.groups;
+      record.fragment = handshake;
+      return record
+   }
+   /**!SECTION
+    * ```markdown
+    * In order to maximize backward
+      compatibility, a record containing an initial ClientHello SHOULD have
+      version 0x0301 (reflecting TLS 1.0) and a record containing a second
+      ClientHello or a ServerHello MUST have version 0x0303 (reflecting
+      TLS 1.2).
+      ```
+    */
+   get initRecord() {
+      const handshake = this.handshake
+      const record = unity(22, Version.TLS10.byte, Uint16.fromValue(handshake.length), handshake);
       record.groups = this.groups;
       record.fragment = handshake;
       return record

@@ -10,11 +10,11 @@ import { ClientHelloOption } from "../src/compose.js";
 /**
  * Represents a TLS 1.3 ClientHello message as a binary structure.
  * Extends Uint8Array and provides convenient access to TLS fields.
- * @version 0.10.4
+ * @version 1.1.1
  */
 export class ClientHello extends Uint8Array {
   /** compose ClientHello */
-  static compose(option?: ClientHelloOption): ClientHello
+  static compose(option?: ClientHelloOption): ClientHello;
 
   /** Create a new instance from given arguments. */
   static create(...args: ConstructorParameters<typeof Uint8Array>): ClientHello;
@@ -90,6 +90,20 @@ export class ClientHello extends Uint8Array {
    * Wraps the handshake in a TLS record.
    */
   get record(): Uint8Array & {
+    groups: any;
+    fragment: Uint8Array;
+  };
+
+  /**!SECTION
+    * ```markdown
+    * In order to maximize backward
+      compatibility, a record containing an initial ClientHello SHOULD have
+      version 0x0301 (reflecting TLS 1.0) and a record containing a second
+      ClientHello or a ServerHello MUST have version 0x0303 (reflecting
+      TLS 1.2).
+      ```
+  */
+  get initRecord(): Uint8Array & {
     groups: any;
     fragment: Uint8Array;
   };

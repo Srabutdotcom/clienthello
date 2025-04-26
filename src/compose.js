@@ -5,7 +5,7 @@ import { Cipher, NamedGroup, PskKeyExchangeMode, Version, SignatureScheme, Exten
 export function clientHelloCompose({
    legacy_version = Uint8Array.of(3, 3),
    random = crypto.getRandomValues(new Uint8Array(32)),
-   session_id = new Uint8Array,
+   session_id = crypto.getRandomValues(new Uint8Array(32)),
    ciphers = [
       Cipher.AES_128_GCM_SHA256,
       Cipher.AES_256_GCM_SHA384,

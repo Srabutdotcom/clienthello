@@ -10,7 +10,7 @@ import { ClientHelloOption } from "../src/compose.js";
 /**
  * Represents a TLS 1.3 ClientHello message as a binary structure.
  * Extends Uint8Array and provides convenient access to TLS fields.
- * @version 1.1.1
+ * @version 1.1.2
  */
 export class ClientHello extends Uint8Array {
   /** compose ClientHello */

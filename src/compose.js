@@ -13,7 +13,7 @@ export function clientHelloCompose({
    ],
    legacy_compression_methods = Uint8Array.of(1, 0),
    // extensions/
-   supported_versions = [Version.TLS12, Version.TLS13],
+   supported_versions = [Version.TLS13, Version.TLS12],
    psk_key_exchange_modes = [PskKeyExchangeMode.PSK_DHE_KE],
    supported_groups = [
       NamedGroup.X25519,

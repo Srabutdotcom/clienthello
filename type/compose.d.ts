@@ -72,7 +72,7 @@ export declare const defaultOption: Required<ClientHelloOption>;
 
 /**
  * Composes a TLS 1.3 ClientHello message.
- * @version 1.1.2
+ * @version 1.1.3
  */
 export declare function clientHelloCompose(
   option?: ClientHelloOption
